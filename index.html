@@ -53,20 +53,40 @@
     }
     .hover-card {
       transition: transform 0.3s ease, box-shadow 0.3s ease;
+      border-radius: 8px;
     }
     .hover-card:hover {
       transform: translateY(-5px);
       box-shadow: 0 10px 30px -10px rgba(0,0,0,0.2);
     }
-    /* Image caption style */
     .caption {
       font-size: 0.9rem;
       color: #666;
-      margin-top: 0.5rem;
+      margin-top: 0.75rem;
       font-style: italic;
     }
-    .figure-container {
-      margin-bottom: 2rem;
+    .section-title {
+      margin-bottom: 1.5rem;
+    }
+    /* Flexbox layout for consistent height */
+    .equal-height-row {
+      display: flex;
+      align-items: end; /* Align images to the bottom baseline */
+      justify-content: center;
+    }
+    .equal-height-column {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+    }
+    .figure-image {
+      max-height: 400px; /* Limit max height to prevent huge images */
+      width: auto;
+      max-width: 100%;
+      object-fit: contain;
+    }
+    hr {
+      margin: 3rem 0;
     }
   </style>
 </head>
@@ -142,7 +162,7 @@
           <h2 class="title is-3 reveal">Abstract</h2>
           <div class="content has-text-justified reveal">
             <p>
-              This paper presents a robust <strong>thermal-fluid-structure coupling simulation framework</strong> for large marine diesel engine pistons. By integrating <strong>Computational Fluid Dynamics (CFD)</strong> with Finite Element Analysis (FEA), we overcome the limitations of traditional empirical formulas. Our approach explicitly models the multiphase flow within the cooling cavity to derive accurate thermal boundary conditions, ensuring precise stress and deformation predictions under extreme operating loads.
+              This paper proposes a <strong>thermal-fluid-structure coupling simulation method</strong> for pistons in large marine diesel engines. By integrating <strong>Computational Fluid Dynamics (CFD)</strong> to model the internal cooling cavity, we accurately identify the cooling boundary conditions, which are then mapped to the solid structure. The results demonstrate that the piston's maximum coupling stress and deformation remain within permissible limits under working conditions.
             </p>
           </div>
         </div>
@@ -150,109 +170,124 @@
 
       <hr>
 
-      <h2 class="title is-3 reveal">1. Geometric Modeling & Parameters</h2>
-      <div class="content has-text-justified reveal">
-        <p>
-          Accurate simulation begins with precise geometric representation. We established a parametric model of the piston (Figure 1), focusing on the critical dimensions of the crown, skirt, and cooling gallery. A high-fidelity 3D model (Figure 2) was constructed in SolidWorks to capture the complex internal structure, which is essential for analyzing the "shaker cooling" effect induced by piston motion.
-        </p>
-      </div>
-      
-      <div class="columns is-centered reveal figure-container">
-        <div class="column is-6 has-text-centered">
-          <img src="./static/images/Figure 1.jpg" class="hover-card" alt="Structure and geometrical sizes" style="max-height: 400px; width: auto;">
-          <p class="caption"><strong>Figure 1:</strong> Structure and geometrical sizes of the piston ($C_l=260$mm, $C_w=480$mm).</p>
+      <div class="reveal">
+        <h2 class="title is-3 section-title">1. Geometrical Modeling</h2>
+        <div class="content has-text-justified">
+          <p>
+            The piston is the core component of the marine diesel engine. We first established a parametric geometric model based on the key design variables such as crown length ($C_l$) and skirt length ($S_l$), as defined in <strong>Figure 1</strong>. Based on these parameters, a high-fidelity 3D model was constructed in SolidWorks (<strong>Figure 2</strong>) to capture the complex internal cooling gallery structure.
+          </p>
         </div>
-        <div class="column is-6 has-text-centered">
-          <img src="./static/images/Figure 2.jpg" class="hover-card" alt="Overall piston geometry" style="max-height: 400px; width: auto;">
-          <p class="caption"><strong>Figure 2:</strong> Overall piston geometry (a)-(b) and sectional view (c).</p>
-        </div>
-      </div>
-
-      <hr>
-
-      <h2 class="title is-3 reveal">2. Simulation Configuration: CFD & FEA</h2>
-      <div class="content has-text-justified reveal">
-        <p>
-          The coupled analysis requires high-quality discretization for both fluid and solid domains. We employed polyhedral meshes for the fluid to handle the irregular cavity shape efficiently.
-        </p>
-      </div>
-
-      <div class="columns is-centered reveal figure-container">
-        <div class="column is-6 has-text-centered">
-          <img src="./static/images/Figure 3.jpg" class="hover-card" alt="CFD meshing" style="width: 100%;">
-          <p class="caption"><strong>Figure 3:</strong> CFD meshing of the cooling cavity. Polyhedral meshes (366,243 cells) were used to reduce computation time while maintaining accuracy.</p>
-        </div>
-        <div class="column is-6 has-text-centered">
-          <img src="./static/images/Figure 6.jpg" class="hover-card" alt="Solid meshing" style="width: 100%;">
-          <p class="caption"><strong>Figure 6:</strong> Structural meshing of the solid piston. A hybrid grid of hexahedra and tetrahedra (1.4M nodes) ensures detailed stress capture.</p>
-        </div>
-      </div>
-
-      <div class="content has-text-justified reveal">
-        <p>
-          Boundary conditions define the physics. The cooling oil circulation is modeled from the crosshead pin to the spray nozzles (Figure 4), while mechanical loads simulate the maximum explosion pressure ($P_{max}$) of 18.5 MPa (Figure 8).
-        </p>
-      </div>
-
-      <div class="columns is-centered reveal figure-container">
-        <div class="column is-5 has-text-centered">
-          <img src="./static/images/Figure 4.jpg" class="hover-card" alt="Cooling oil flow" style="max-height: 350px; width: auto;">
-          <p class="caption"><strong>Figure 4:</strong> Schematic of the cooling oil flow path.</p>
-        </div>
-        <div class="column is-7 has-text-centered">
-          <img src="./static/images/Figure 8.jpg" class="hover-card" alt="Pressure applied" style="max-height: 350px; width: auto;">
-          <p class="caption"><strong>Figure 8:</strong> Mechanical boundary conditions. The explosion pressure is applied to the piston crown with varying magnitudes.</p>
+        
+        <div class="columns is-centered equal-height-row figure-container">
+          <div class="column is-5 has-text-centered equal-height-column">
+            <img src="./static/images/Figure 1.jpg" class="hover-card figure-image" alt="Geometrical parameters">
+            <p class="caption"><strong>Figure 1:</strong> Structure and geometrical sizes of the piston.</p>
+          </div>
+          <div class="column is-5 has-text-centered equal-height-column">
+            <img src="./static/images/Figure 2.jpg" class="hover-card figure-image" alt="3D Geometry">
+            <p class="caption"><strong>Figure 2:</strong> Overall piston geometry (a)-(b) and sectional view (c).</p>
+          </div>
         </div>
       </div>
 
       <hr>
 
-      <h2 class="title is-3 reveal">3. Results & Discussion</h2>
-      
-      <h4 class="title is-4 reveal">3.1 Fluid Dynamics (CFD)</h4>
-      <div class="content has-text-justified reveal">
-        <p>
-          The multiphase flow simulation provides the foundational thermal data. We obtained distributions for temperature, pressure, and velocity within the cooling chamber.
-        </p>
-      </div>
-      <div class="columns is-centered reveal figure-container">
-        <div class="column is-10 has-text-centered">
-          <img src="./static/images/Figure 5.jpg" class="hover-card" alt="Cooling fluid field" style="width: 100%;">
-          <p class="caption"><strong>Figure 5:</strong> CFD Results: (a) Temperature distribution, (b) Pressure distribution, and (c) Velocity vectors inside the cooling cavity.</p>
+      <div class="reveal">
+        <h2 class="title is-3 section-title">2. CFD Simulation of Cooling Cavity</h2>
+        
+        <h4 class="title is-5">2.1 Meshing & Flow Configuration</h4>
+        <div class="content has-text-justified">
+          <p>
+            To accurately simulate the oil cooling process, we employed a multiphase flow CFD model. The irregular cooling cavity was discretized using polyhedral meshes (<strong>Figure 3</strong>), which offer superior accuracy for complex geometries. The cooling oil path, flowing from the crosshead pin through the inner pipe and spraying onto the piston crown, is illustrated in <strong>Figure 4</strong>.
+          </p>
+        </div>
+
+        <div class="columns is-centered equal-height-row figure-container">
+          <div class="column is-6 has-text-centered equal-height-column">
+            <img src="./static/images/Figure 3.jpg" class="hover-card figure-image" alt="CFD Meshing">
+            <p class="caption"><strong>Figure 3:</strong> CFD meshing of the cooling cavity using polyhedral cells.</p>
+          </div>
+          <div class="column is-4 has-text-centered equal-height-column">
+            <img src="./static/images/Figure 4.jpg" class="hover-card figure-image" alt="Oil Flow">
+            <p class="caption"><strong>Figure 4:</strong> Schematic of the cooling oil flow path.</p>
+          </div>
+        </div>
+
+        <h4 class="title is-5" style="margin-top: 2rem;">2.2 Fluid Domain Results</h4>
+        <div class="content has-text-justified">
+          <p>
+            The CFD simulation provided detailed distributions of temperature, pressure, and velocity within the cavity (<strong>Figure 5</strong>). These results serve as the precise boundary conditions for the subsequent structural analysis.
+          </p>
+        </div>
+
+        <div class="columns is-centered figure-container">
+          <div class="column is-10 has-text-centered">
+            <img src="./static/images/Figure 5.jpg" class="hover-card figure-image" style="width: 100%; max-height: none;" alt="CFD Results">
+            <p class="caption"><strong>Figure 5:</strong> Cooling fluid field: (a) Temperature, (b) Pressure, and (c) Velocity distribution.</p>
+          </div>
         </div>
       </div>
 
-      <h4 class="title is-4 reveal">3.2 Temperature Field</h4>
-      <div class="content has-text-justified reveal">
-        <p>
-          Mapping the CFD results to the solid reveals a significant temperature gradient. The highest temperature (707.63 K) occurs at the outer edge of the crown.
-        </p>
-      </div>
-      <div class="columns is-centered reveal figure-container">
-        <div class="column is-8 has-text-centered">
-          <img src="./static/images/Figure 7.jpg" class="hover-card" alt="Temperature variation" style="width: 100%;">
-          <p class="caption"><strong>Figure 7:</strong> (a) Visualization of coolant flow streamlines; (b) Resulting temperature distribution on the solid piston body.</p>
+      <hr>
+
+      <div class="reveal">
+        <h2 class="title is-3 section-title">3. Solid Model & Boundary Conditions</h2>
+        
+        <h4 class="title is-5">3.1 Structural Meshing & Thermal Mapping</h4>
+        <div class="content has-text-justified">
+          <p>
+            The solid piston was meshed using a hybrid approach of hexahedral and tetrahedral grids (<strong>Figure 6</strong>). The heat transfer coefficients and wall temperatures obtained from the CFD simulation were mapped onto this solid mesh, resulting in the non-uniform temperature distribution shown in <strong>Figure 7</strong>.
+          </p>
+        </div>
+
+        <div class="columns is-centered equal-height-row figure-container">
+          <div class="column is-5 has-text-centered equal-height-column">
+            <img src="./static/images/Figure 6.jpg" class="hover-card figure-image" alt="Solid Meshing">
+            <p class="caption"><strong>Figure 6:</strong> Structural meshing of the piston body.</p>
+          </div>
+          <div class="column is-5 has-text-centered equal-height-column">
+            <img src="./static/images/Figure 7.jpg" class="hover-card figure-image" alt="Temperature Field">
+            <p class="caption"><strong>Figure 7:</strong> (a) Coolant streamlines and (b) Mapped temperature distribution.</p>
+          </div>
+        </div>
+
+        <h4 class="title is-5" style="margin-top: 2rem;">3.2 Mechanical Constraints</h4>
+        <div class="content has-text-justified">
+          <p>
+            In addition to thermal loads, the piston is subjected to mechanical pressure from the combustion process. <strong>Figure 8</strong> illustrates the application of the maximum explosion pressure ($P_{max} = 18.5$ MPa) on the piston crown.
+          </p>
+        </div>
+
+        <div class="columns is-centered figure-container">
+          <div class="column is-6 has-text-centered">
+            <img src="./static/images/Figure 8.jpg" class="hover-card figure-image" alt="Mechanical Load">
+            <p class="caption"><strong>Figure 8:</strong> Distribution of mechanical pressure applied to the piston.</p>
+          </div>
         </div>
       </div>
 
-      <h4 class="title is-4 reveal">3.3 Structural Response (Deformation & Stress)</h4>
-      <div class="content has-text-justified reveal">
-        <p>
-          Finally, the coupled analysis combines thermal and mechanical loads. While deformation is minimal (Figure 9), stress concentration is observed near the cooling bores (Figure 10).
-        </p>
-      </div>
+      <hr>
 
-      <div class="columns is-centered reveal figure-container">
-        <div class="column is-10 has-text-centered">
-          <img src="./static/images/Figure 9.jpg" class="hover-card" alt="Total deformation" style="width: 100%;">
-          <p class="caption"><strong>Figure 9:</strong> Total deformation analysis: (a) Thermal deformation dominates the crown, (b) Mechanical deformation, (c) Combined coupling deformation (Max < 1mm).</p>
+      <div class="reveal">
+        <h2 class="title is-3 section-title">4. Coupled Simulation Results</h2>
+        <div class="content has-text-justified">
+          <p>
+            Finally, the thermal-fluid-structure coupling analysis was performed. <strong>Figure 9</strong> shows the total deformation, indicating that the maximum deformation occurs at the edge of the piston crown but remains small (< 1mm). <strong>Figure 10</strong> displays the equivalent stress distribution, identifying the top of the inner cooling bore as the region of stress concentration (419.68 MPa), which is within the material's safety limit.
+          </p>
         </div>
-      </div>
 
-      <div class="columns is-centered reveal figure-container">
-        <div class="column is-10 has-text-centered">
-          <img src="./static/images/Figure 10.jpg" class="hover-card" alt="Equivalent stress" style="width: 100%;">
-          <p class="caption"><strong>Figure 10:</strong> Equivalent Von-Mises Stress: (a) Thermal stress, (b) Mechanical stress, (c) Total Coupling stress. The peak stress (419.68 MPa) is within safety limits.</p>
+        <div class="columns is-centered figure-container">
+          <div class="column is-10 has-text-centered">
+            <img src="./static/images/Figure 9.jpg" class="hover-card figure-image" style="width: 100%; max-height: none;" alt="Deformation Results">
+            <p class="caption"><strong>Figure 9:</strong> Total deformation: (a) Thermal, (b) Mechanical, and (c) Coupled deformation.</p>
+          </div>
+        </div>
+
+        <div class="columns is-centered figure-container">
+          <div class="column is-10 has-text-centered">
+            <img src="./static/images/Figure 10.jpg" class="hover-card figure-image" style="width: 100%; max-height: none;" alt="Stress Results">
+            <p class="caption"><strong>Figure 10:</strong> Equivalent stress: (a) Thermal stress, (b) Mechanical stress, and (c) Coupled stress.</p>
+          </div>
         </div>
       </div>
 
