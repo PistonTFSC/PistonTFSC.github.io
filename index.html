@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="High-fidelity thermal-fluid-structure coupling simulation for marine diesel engine pistons using CFD and FEA integration.">
+  <meta name="keywords" content="Marine Diesel Engine, Piston, Thermal-fluid-structure Coupling, CFD, FEA, Multiphase Flow">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Thermal-Fluid-Structure Coupling Simulation of Piston in Large Marine Diesel Engine</title>
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-PYVRSFMDRL');
+  </script>
+
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="./static/images/favicon.svg">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+
+  <style>
+    /* Custom Styles */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .hover-card {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .hover-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 30px -10px rgba(0,0,0,0.2);
+    }
+    /* Image caption style */
+    .caption {
+      font-size: 0.9rem;
+      color: #666;
+      margin-top: 0.5rem;
+      font-style: italic;
+    }
+    .figure-container {
+      margin-bottom: 2rem;
+    }
+  </style>
+</head>
+<body>
+
+<nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+  <div class="navbar-menu">
+    <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
+      <a class="navbar-item" href="https://scholar.google.com/citations?user=k82TzLwAAAAJ" target="_blank">
+        <span class="icon" style="margin-right: 0.3rem;">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/c/c7/Google_Scholar_logo.svg" alt="Google Scholar" style="height: 20px; width: 20px;">
+        </span>
+        <span>Minghang Zhao (Google Scholar)</span>
+      </a>
+    </div>
+  </div>
+</nav>
+
+<section class="hero reveal"> 
+  <div class="hero-body" style="padding-top: 1rem;">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">Thermal-fluid-structure coupling simulation of piston in large marine diesel engine</h1>
+          
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><strong>Congcong Luo</strong><sup>1</sup>,</span>
+            <span class="author-block"><strong>Minghang Zhao</strong><sup>1,*</sup>,</span>
+            <span class="author-block"><strong>Kai Zhang</strong><sup>2</sup>,</span>
+            <span class="author-block"><strong>Xiaoxia Yu</strong><sup>3</sup>,</span>
+            <span class="author-block"><strong>Junfu Li</strong><sup>4</sup>,</span>
+            <span class="author-block"><strong>Zhiquan Cui</strong><sup>4</sup></span>
+          </div>
+
+          <div class="is-size-6 publication-authors" style="font-size: 0.8rem; line-height: 1.5;">
+            <span class="author-block"><sup>1</sup>Department of Mechanical Engineering, Harbin Institute of Technology, Weihai, China</span><br>
+            <span class="author-block"><sup>2</sup>School of Mechanical Engineering, Southwest Jiaotong University, Chengdu, China</span><br>
+            <span class="author-block"><sup>3</sup>College of Mechanical Engineering, Chongqing University of Technology, Chongqing, China</span><br>
+            <span class="author-block"><sup>4</sup>School of Automotive Engineering, Harbin Institute of Technology, Weihai, China</span>
+          </div>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <span class="link-block">
+                <a href="https://doi.org/10.1088/1742-6596/2827/1/012020"
+                   class="button is-normal is-rounded is-dark hover-card" 
+                   target="_blank">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="hero is-light is-small reveal">
+  <div class="hero-body">
+    <div class="container is-max-desktop has-text-centered">
+      <div class="columns is-centered">
+        <div class="column is-8">
+            <img src="./static/images/Figure 2.jpg" class="hover-card" alt="Overall piston geometry" style="border-radius: 8px; width: 100%;">
+            <p class="subtitle is-6 caption">
+              <strong>Figure 2:</strong> Overall piston geometry (a)-(b) and sectional view (c). This high-fidelity model serves as the foundation for the coupled simulation.
+            </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-four-fifths">
+          <h2 class="title is-3 reveal">Abstract</h2>
+          <div class="content has-text-justified reveal">
+            <p>
+              This paper presents a robust <strong>thermal-fluid-structure coupling simulation framework</strong> for large marine diesel engine pistons. By integrating <strong>Computational Fluid Dynamics (CFD)</strong> with Finite Element Analysis (FEA), we overcome the limitations of traditional empirical formulas. Our approach explicitly models the multiphase flow within the cooling cavity to derive accurate thermal boundary conditions, ensuring precise stress and deformation predictions under extreme operating loads.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <hr>
+
+      <h2 class="title is-3 reveal">1. Geometric Modeling & Parameters</h2>
+      <div class="content has-text-justified reveal">
+        <p>
+          Accurate simulation begins with precise geometric representation. We established a parametric model of the piston, focusing on the critical dimensions of the crown, skirt, and cooling gallery.
+        </p>
+      </div>
+      <div class="columns is-centered reveal figure-container">
+        <div class="column is-6 has-text-centered">
+          <img src="./static/images/Figure 1.jpg" class="hover-card" alt="Structure and geometrical sizes" style="max-height: 400px;">
+          <p class="caption"><strong>Figure 1:</strong> Structure and geometrical sizes of the piston, detailing the crown length ($C_l$), width ($C_w$), and cooling gallery position.</p>
+        </div>
+        <div class="column is-6 has-text-centered" style="display: flex; align-items: center; justify-content: center;">
+             <p class="content is-size-6">
+               The 3D model (shown in the header as <strong>Figure 2</strong>) was constructed in SolidWorks. It captures the complex internal structure of the cooling cavity, which is essential for analyzing the "shaker cooling" effect induced by piston motion.
+             </p>
+        </div>
+      </div>
+
+      <hr>
+
+      <h2 class="title is-3 reveal">2. Simulation Configuration: CFD & FEA</h2>
+      <div class="content has-text-justified reveal">
+        <p>
+          The coupled analysis requires high-quality discretization for both fluid and solid domains. We employed polyhedral meshes for the fluid to handle the irregular cavity shape efficiently.
+        </p>
+      </div>
+
+      <div class="columns is-centered reveal figure-container">
+        <div class="column is-6 has-text-centered">
+          <img src="./static/images/Figure 3.jpg" class="hover-card" alt="CFD meshing" style="width: 100%;">
+          <p class="caption"><strong>Figure 3:</strong> CFD meshing of the cooling cavity. Polyhedral meshes (366,243 cells) were used to reduce computation time while maintaining accuracy.</p>
+        </div>
+        <div class="column is-6 has-text-centered">
+          <img src="./static/images/Figure 6.jpg" class="hover-card" alt="Solid meshing" style="width: 100%;">
+          <p class="caption"><strong>Figure 6:</strong> Structural meshing of the solid piston. A hybrid grid of hexahedra and tetrahedra (1.4M nodes) ensures detailed stress capture.</p>
+        </div>
+      </div>
+
+      <div class="content has-text-justified reveal">
+        <p>
+          Boundary conditions define the physics. The cooling oil circulation is modeled from the crosshead pin to the spray nozzles (Figure 4), while mechanical loads simulate the maximum explosion pressure ($P_{max}$) of 18.5 MPa (Figure 8).
+        </p>
+      </div>
+
+      <div class="columns is-centered reveal figure-container">
+        <div class="column is-5 has-text-centered">
+          <img src="./static/images/Figure 4.jpg" class="hover-card" alt="Cooling oil flow" style="max-height: 350px;">
+          <p class="caption"><strong>Figure 4:</strong> Schematic of the cooling oil flow path.</p>
+        </div>
+        <div class="column is-7 has-text-centered">
+          <img src="./static/images/Figure 8.jpg" class="hover-card" alt="Pressure applied" style="max-height: 350px;">
+          <p class="caption"><strong>Figure 8:</strong> Mechanical boundary conditions. The explosion pressure is applied to the piston crown with varying magnitudes.</p>
+        </div>
+      </div>
+
+      <hr>
+
+      <h2 class="title is-3 reveal">3. Results & Discussion</h2>
+      
+      <h4 class="title is-4 reveal">3.1 Fluid Dynamics (CFD)</h4>
+      <div class="content has-text-justified reveal">
+        <p>
+          The multiphase flow simulation provides the foundational thermal data. We obtained distributions for temperature, pressure, and velocity within the cooling chamber.
+        </p>
+      </div>
+      <div class="columns is-centered reveal figure-container">
+        <div class="column is-10 has-text-centered">
+          <img src="./static/images/Figure 5.jpg" class="hover-card" alt="Cooling fluid field" style="width: 100%;">
+          <p class="caption"><strong>Figure 5:</strong> CFD Results: (a) Temperature distribution, (b) Pressure distribution, and (c) Velocity vectors inside the cooling cavity.</p>
+        </div>
+      </div>
+
+      <h4 class="title is-4 reveal">3.2 Temperature Field</h4>
+      <div class="content has-text-justified reveal">
+        <p>
+          Mapping the CFD results to the solid reveals a significant temperature gradient. The highest temperature (707.63 K) occurs at the outer edge of the crown.
+        </p>
+      </div>
+      <div class="columns is-centered reveal figure-container">
+        <div class="column is-8 has-text-centered">
+          <img src="./static/images/Figure 7.jpg" class="hover-card" alt="Temperature variation" style="width: 100%;">
+          <p class="caption"><strong>Figure 7:</strong> (a) Visualization of coolant flow streamlines; (b) Resulting temperature distribution on the solid piston body.</p>
+        </div>
+      </div>
+
+      <h4 class="title is-4 reveal">3.3 Structural Response (Deformation & Stress)</h4>
+      <div class="content has-text-justified reveal">
+        <p>
+          Finally, the coupled analysis combines thermal and mechanical loads. While deformation is minimal (Figure 9), stress concentration is observed near the cooling bores (Figure 10).
+        </p>
+      </div>
+
+      <div class="columns is-centered reveal figure-container">
+        <div class="column is-10 has-text-centered">
+          <img src="./static/images/Figure 9.jpg" class="hover-card" alt="Total deformation" style="width: 100%;">
+          <p class="caption"><strong>Figure 9:</strong> Total deformation analysis: (a) Thermal deformation dominates the crown, (b) Mechanical deformation, (c) Combined coupling deformation (Max < 1mm).</p>
+        </div>
+      </div>
+
+      <div class="columns is-centered reveal figure-container">
+        <div class="column is-10 has-text-centered">
+          <img src="./static/images/Figure 10.jpg" class="hover-card" alt="Equivalent stress" style="width: 100%;">
+          <p class="caption"><strong>Figure 10:</strong> Equivalent Von-Mises Stress: (a) Thermal stress, (b) Mechanical stress, (c) Total Coupling stress. The peak stress (419.68 MPa) is within safety limits.</p>
+        </div>
+      </div>
+
+    </div>
+</section>
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">Citation</h2>
+    <pre><code>@article{luo2024thermal,
+  title     = {Thermal-fluid-structure coupling simulation of piston in large marine diesel engine},
+  author    = {Luo, Congcong and Zhao, Minghang and Zhang, Kai and Yu, Xiaoxia and Li, Junfu and Cui, Zhiquan},
+  journal   = {Journal of Physics: Conference Series},
+  volume    = {2827},
+  pages     = {012020},
+  year      = {2024},
+  publisher = {IOP Publishing},
+  doi       = {10.1088/1742-6596/2827/1/012020},
+}</code></pre>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="content has-text-centered">
+      <a class="icon-link" href="https://doi.org/10.1088/1742-6596/2827/1/012020">
+        <i class="fas fa-file-pdf"></i>
+      </a>
+      <p>
+        Copyright © 2024 Congcong Luo et al. Published in Journal of Physics: Conference Series.
+      </p>
+    </div>
+  </div>
+</footer>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('active');
+            }
+        });
+    }, { threshold: 0.1 });
+  
+    document.querySelectorAll('.reveal').forEach(el => {
+        observer.observe(el);
+    });
+});
+</script>
+
+</body>
+</html>
