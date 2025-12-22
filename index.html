@@ -41,7 +41,7 @@
   <script src="./static/js/index.js"></script>
 
   <style>
-    /* --- Custom Styles for Alignment --- */
+    /* --- Custom Styles for Alignment & Spacing --- */
     
     .reveal {
       opacity: 0;
@@ -62,39 +62,43 @@
       box-shadow: 0 10px 30px -10px rgba(0,0,0,0.2);
     }
     
+    /* MODIFIED: Caption style */
     .caption {
       font-size: 0.9rem;
       color: #666;
-      margin-top: 0.5rem;
-      font-style: italic;
-      min-height: 3em; /* Ensure caption lines align even if text length differs */
+      margin-top: 5px;   /* Reduced space between image and text */
+      font-style: normal; /* Removed italics */
+      line-height: 1.4;
     }
     
+    /* MODIFIED: Section spacing */
     .section-title {
       margin-bottom: 1.5rem;
     }
 
-    /* CRITICAL: Fixed Height Container Strategy 
-       This forces images to live inside a box of the exact same height.
-    */
+    .figure-container {
+      margin-bottom: 1.5rem; /* Reduced bottom spacing for figure blocks */
+    }
+
+    /* Fixed Height Container Strategy */
     .img-container {
-      height: 350px; /* You can adjust this value (e.g. 300px or 400px) */
+      height: 350px; 
       display: flex;
-      align-items: center;     /* Center vertically */
-      justify-content: center; /* Center horizontally */
-      margin-bottom: 10px;
-      overflow: hidden;        /* Prevent spillover */
+      align-items: center;     
+      justify-content: center; 
+      margin-bottom: 2px;      /* Minimal space between image and caption */
+      overflow: hidden;        
     }
     
     .img-container img {
-      max-height: 100%; /* Force image to fit height */
-      width: auto;      /* Let width scale naturally */
-      max-width: 100%;  /* Prevent image from overflowing width */
-      object-fit: contain; /* Ensure image isn't stretched/distorted */
+      max-height: 100%; 
+      width: auto;      
+      max-width: 100%;  
+      object-fit: contain; 
     }
 
     hr {
-      margin: 3rem 0;
+      margin: 2rem 0; /* Tighter separators */
     }
   </style>
 </head>
@@ -121,7 +125,7 @@
 </nav>
 
 <section class="hero reveal"> 
-  <div class="hero-body" style="padding-top: 1rem;">
+  <div class="hero-body" style="padding-top: 1rem; padding-bottom: 1rem;">
     <div class="container is-max-desktop">
       <div class="columns is-centered">
         <div class="column has-text-centered">
@@ -163,7 +167,7 @@
   </div>
 </section>
 
-<section class="section">
+<section class="section" style="padding-top: 0rem;">
     <div class="container is-max-desktop">
       <div class="columns is-centered has-text-centered">
         <div class="column is-four-fifths">
@@ -186,7 +190,7 @@
           </p>
         </div>
         
-        <div class="columns is-centered">
+        <div class="columns is-centered figure-container">
           <div class="column is-5 has-text-centered">
             <div class="img-container">
               <img src="./static/images/Figure 1.jpg" class="hover-card" alt="Geometrical parameters">
@@ -214,7 +218,7 @@
           </p>
         </div>
 
-        <div class="columns is-centered">
+        <div class="columns is-centered figure-container">
           <div class="column is-6 has-text-centered">
             <div class="img-container">
               <img src="./static/images/Figure 3.jpg" class="hover-card" alt="CFD Meshing">
@@ -236,7 +240,7 @@
           </p>
         </div>
 
-        <div class="columns is-centered">
+        <div class="columns is-centered figure-container">
           <div class="column is-10 has-text-centered">
             <img src="./static/images/Figure 5.jpg" class="hover-card" style="width: 100%; height: auto;" alt="CFD Results">
             <p class="caption"><strong>Figure 5:</strong> Cooling fluid field: (a) Temperature, (b) Pressure, and (c) Velocity distribution.</p>
@@ -256,7 +260,7 @@
           </p>
         </div>
 
-        <div class="columns is-centered">
+        <div class="columns is-centered figure-container">
           <div class="column is-5 has-text-centered">
             <div class="img-container">
               <img src="./static/images/Figure 6.jpg" class="hover-card" alt="Solid Meshing">
@@ -278,7 +282,7 @@
           </p>
         </div>
 
-        <div class="columns is-centered">
+        <div class="columns is-centered figure-container">
           <div class="column is-6 has-text-centered">
             <div class="img-container">
               <img src="./static/images/Figure 8.jpg" class="hover-card" alt="Mechanical Load">
@@ -298,14 +302,14 @@
           </p>
         </div>
 
-        <div class="columns is-centered">
+        <div class="columns is-centered figure-container">
           <div class="column is-10 has-text-centered">
             <img src="./static/images/Figure 9.jpg" class="hover-card" style="width: 100%; height: auto;" alt="Deformation Results">
             <p class="caption"><strong>Figure 9:</strong> Total deformation: (a) Thermal, (b) Mechanical, and (c) Coupled deformation.</p>
           </div>
         </div>
 
-        <div class="columns is-centered">
+        <div class="columns is-centered figure-container">
           <div class="column is-10 has-text-centered">
             <img src="./static/images/Figure 10.jpg" class="hover-card" style="width: 100%; height: auto;" alt="Stress Results">
             <p class="caption"><strong>Figure 10:</strong> Equivalent stress: (a) Thermal stress, (b) Mechanical stress, and (c) Coupled stress.</p>
