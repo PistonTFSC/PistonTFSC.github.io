@@ -41,7 +41,8 @@
   <script src="./static/js/index.js"></script>
 
   <style>
-    /* Custom Styles */
+    /* --- Custom Styles for Alignment --- */
+    
     .reveal {
       opacity: 0;
       transform: translateY(30px);
@@ -51,6 +52,7 @@
       opacity: 1;
       transform: translateY(0);
     }
+    
     .hover-card {
       transition: transform 0.3s ease, box-shadow 0.3s ease;
       border-radius: 8px;
@@ -59,32 +61,38 @@
       transform: translateY(-5px);
       box-shadow: 0 10px 30px -10px rgba(0,0,0,0.2);
     }
+    
     .caption {
       font-size: 0.9rem;
       color: #666;
-      margin-top: 0.75rem;
+      margin-top: 0.5rem;
       font-style: italic;
+      min-height: 3em; /* Ensure caption lines align even if text length differs */
     }
+    
     .section-title {
       margin-bottom: 1.5rem;
     }
-    /* Flexbox layout for consistent height */
-    .equal-height-row {
+
+    /* CRITICAL: Fixed Height Container Strategy 
+       This forces images to live inside a box of the exact same height.
+    */
+    .img-container {
+      height: 350px; /* You can adjust this value (e.g. 300px or 400px) */
       display: flex;
-      align-items: end; /* Align images to the bottom baseline */
-      justify-content: center;
+      align-items: center;     /* Center vertically */
+      justify-content: center; /* Center horizontally */
+      margin-bottom: 10px;
+      overflow: hidden;        /* Prevent spillover */
     }
-    .equal-height-column {
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
+    
+    .img-container img {
+      max-height: 100%; /* Force image to fit height */
+      width: auto;      /* Let width scale naturally */
+      max-width: 100%;  /* Prevent image from overflowing width */
+      object-fit: contain; /* Ensure image isn't stretched/distorted */
     }
-    .figure-image {
-      max-height: 400px; /* Limit max height to prevent huge images */
-      width: auto;
-      max-width: 100%;
-      object-fit: contain;
-    }
+
     hr {
       margin: 3rem 0;
     }
@@ -178,13 +186,17 @@
           </p>
         </div>
         
-        <div class="columns is-centered equal-height-row figure-container">
-          <div class="column is-5 has-text-centered equal-height-column">
-            <img src="./static/images/Figure 1.jpg" class="hover-card figure-image" alt="Geometrical parameters">
+        <div class="columns is-centered">
+          <div class="column is-5 has-text-centered">
+            <div class="img-container">
+              <img src="./static/images/Figure 1.jpg" class="hover-card" alt="Geometrical parameters">
+            </div>
             <p class="caption"><strong>Figure 1:</strong> Structure and geometrical sizes of the piston.</p>
           </div>
-          <div class="column is-5 has-text-centered equal-height-column">
-            <img src="./static/images/Figure 2.jpg" class="hover-card figure-image" alt="3D Geometry">
+          <div class="column is-5 has-text-centered">
+            <div class="img-container">
+              <img src="./static/images/Figure 2.jpg" class="hover-card" alt="3D Geometry">
+            </div>
             <p class="caption"><strong>Figure 2:</strong> Overall piston geometry (a)-(b) and sectional view (c).</p>
           </div>
         </div>
@@ -202,13 +214,17 @@
           </p>
         </div>
 
-        <div class="columns is-centered equal-height-row figure-container">
-          <div class="column is-6 has-text-centered equal-height-column">
-            <img src="./static/images/Figure 3.jpg" class="hover-card figure-image" alt="CFD Meshing">
+        <div class="columns is-centered">
+          <div class="column is-6 has-text-centered">
+            <div class="img-container">
+              <img src="./static/images/Figure 3.jpg" class="hover-card" alt="CFD Meshing">
+            </div>
             <p class="caption"><strong>Figure 3:</strong> CFD meshing of the cooling cavity using polyhedral cells.</p>
           </div>
-          <div class="column is-4 has-text-centered equal-height-column">
-            <img src="./static/images/Figure 4.jpg" class="hover-card figure-image" alt="Oil Flow">
+          <div class="column is-4 has-text-centered">
+            <div class="img-container">
+              <img src="./static/images/Figure 4.jpg" class="hover-card" alt="Oil Flow">
+            </div>
             <p class="caption"><strong>Figure 4:</strong> Schematic of the cooling oil flow path.</p>
           </div>
         </div>
@@ -220,9 +236,9 @@
           </p>
         </div>
 
-        <div class="columns is-centered figure-container">
+        <div class="columns is-centered">
           <div class="column is-10 has-text-centered">
-            <img src="./static/images/Figure 5.jpg" class="hover-card figure-image" style="width: 100%; max-height: none;" alt="CFD Results">
+            <img src="./static/images/Figure 5.jpg" class="hover-card" style="width: 100%; height: auto;" alt="CFD Results">
             <p class="caption"><strong>Figure 5:</strong> Cooling fluid field: (a) Temperature, (b) Pressure, and (c) Velocity distribution.</p>
           </div>
         </div>
@@ -240,13 +256,17 @@
           </p>
         </div>
 
-        <div class="columns is-centered equal-height-row figure-container">
-          <div class="column is-5 has-text-centered equal-height-column">
-            <img src="./static/images/Figure 6.jpg" class="hover-card figure-image" alt="Solid Meshing">
+        <div class="columns is-centered">
+          <div class="column is-5 has-text-centered">
+            <div class="img-container">
+              <img src="./static/images/Figure 6.jpg" class="hover-card" alt="Solid Meshing">
+            </div>
             <p class="caption"><strong>Figure 6:</strong> Structural meshing of the piston body.</p>
           </div>
-          <div class="column is-5 has-text-centered equal-height-column">
-            <img src="./static/images/Figure 7.jpg" class="hover-card figure-image" alt="Temperature Field">
+          <div class="column is-5 has-text-centered">
+            <div class="img-container">
+              <img src="./static/images/Figure 7.jpg" class="hover-card" alt="Temperature Field">
+            </div>
             <p class="caption"><strong>Figure 7:</strong> (a) Coolant streamlines and (b) Mapped temperature distribution.</p>
           </div>
         </div>
@@ -258,9 +278,11 @@
           </p>
         </div>
 
-        <div class="columns is-centered figure-container">
+        <div class="columns is-centered">
           <div class="column is-6 has-text-centered">
-            <img src="./static/images/Figure 8.jpg" class="hover-card figure-image" alt="Mechanical Load">
+            <div class="img-container">
+              <img src="./static/images/Figure 8.jpg" class="hover-card" alt="Mechanical Load">
+            </div>
             <p class="caption"><strong>Figure 8:</strong> Distribution of mechanical pressure applied to the piston.</p>
           </div>
         </div>
@@ -276,16 +298,16 @@
           </p>
         </div>
 
-        <div class="columns is-centered figure-container">
+        <div class="columns is-centered">
           <div class="column is-10 has-text-centered">
-            <img src="./static/images/Figure 9.jpg" class="hover-card figure-image" style="width: 100%; max-height: none;" alt="Deformation Results">
+            <img src="./static/images/Figure 9.jpg" class="hover-card" style="width: 100%; height: auto;" alt="Deformation Results">
             <p class="caption"><strong>Figure 9:</strong> Total deformation: (a) Thermal, (b) Mechanical, and (c) Coupled deformation.</p>
           </div>
         </div>
 
-        <div class="columns is-centered figure-container">
+        <div class="columns is-centered">
           <div class="column is-10 has-text-centered">
-            <img src="./static/images/Figure 10.jpg" class="hover-card figure-image" style="width: 100%; max-height: none;" alt="Stress Results">
+            <img src="./static/images/Figure 10.jpg" class="hover-card" style="width: 100%; height: auto;" alt="Stress Results">
             <p class="caption"><strong>Figure 10:</strong> Equivalent stress: (a) Thermal stress, (b) Mechanical stress, and (c) Coupled stress.</p>
           </div>
         </div>
